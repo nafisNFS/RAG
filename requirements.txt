@@ -1,0 +1,9 @@
+fitz
+nltk
+sentence-transformers
+faiss-cpu
+fastapi
+uvicorn
+openai
+numpy
+
