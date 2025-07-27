@@ -9,7 +9,7 @@ def extract_text_with_plumber(pdf_path):
     return full_text
 
 if __name__ == "__main__":
-    pdf_path = "E:/RAG/HSC26-Bangla1st-Paper.pdf"
+    pdf_path = "/pythonProject1/HSC26-Bangla1st-Paper.pdf"
     output_dir = Path("data")
     output_dir.mkdir(parents=True, exist_ok=True)
 
