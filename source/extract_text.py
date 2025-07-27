@@ -1,23 +1,22 @@
+import pdfplumber
+from pathlib import Path
 
-
-import fitz 
-
-def extract_text_from_pdf(pdf_path):
-    doc = fitz.open(pdf_path)
+def extract_text_with_plumber(pdf_path):
     full_text = ""
-
-    for page in doc:
-        text = page.get_text()
-        full_text += text + "\n"
-
-    doc.close()
+    with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+            full_text += page.extract_text() + "\n"
     return full_text
 
 if __name__ == "__main__":
     pdf_path = "E:/RAG/HSC26-Bangla1st-Paper.pdf"
-    raw_text = extract_text_from_pdf(pdf_path)
+    output_dir = Path("data")
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    with open("data/raw_text.txt", "w", encoding="utf-8") as f:
-        f.write(raw_text)
-
-    print("Text extraction complete.")
+    try:
+        raw_text = extract_text_with_plumber(pdf_path)
+        with open(output_dir / "raw_text.txt", "w", encoding="utf-8") as f:
+            f.write(raw_text)
+        print("Text extracted.")
+    except Exception as e:
+        print("Error extracting text:", e)
